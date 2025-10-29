@@ -239,7 +239,7 @@ export default function Page() {
       {answer && (
         <div style={{ marginTop: 24, padding: 16, border: '1px solid #eee', borderRadius: 12, background: '#fafafa' }}>
           <h3>Answer</h3>
-          <p style={{ whiteSpace: 'pre-wrap' }}>{answer}</p>
+          <p style={{ whiteSpace: 'pre-wrap' }}>{answer.replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')}</p>
 
           {cites.length > 0 && (
             <>

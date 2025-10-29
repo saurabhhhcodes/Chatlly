@@ -31,8 +31,8 @@ MICROSOFT_CLIENT_ID = [Client's Microsoft OAuth ID]
 MICROSOFT_CLIENT_SECRET = [Client's Microsoft OAuth Secret]
 BEARER_TOKEN = [Generate random 32-char string]
 SECRET_KEY = [Generate random 32-char string]
-EMBED_MODEL = models/embedding-001
-ANSWER_MODEL = gemini-pro
+EMBED_MODEL = models/text-embedding-004
+ANSWER_MODEL = gemini-1.5-flash
 DATA_DIR = /app/data
 INDEX_DIR = /app/index_store/chroma_db
 ```

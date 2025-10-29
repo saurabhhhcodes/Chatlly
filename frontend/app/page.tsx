@@ -25,23 +25,40 @@ export default function Page() {
     const checkAuth = async () => {
       const loginSuccess = localStorage.getItem('loginSuccess');
       const userSession = localStorage.getItem('userSession');
+      const userName = localStorage.getItem('userName');
+      const userEmail = localStorage.getItem('userEmail');
       
       if (loginSuccess === 'true') {
-        try {
-          const url = userSession ? `${API_BASE}/me?session=${userSession}` : `${API_BASE}/me`;
-          const res = await fetch(url, {
-            headers: { 'Authorization': `Bearer ${TOKEN}` }
+        setIsLoggedIn(true);
+        
+        // First try to use stored user info
+        if (userName || userEmail) {
+          setUserInfo({ 
+            name: userName || userEmail || 'User',
+            email: userEmail 
           });
-          if (res.ok) {
-            const user = await res.json();
-            setIsLoggedIn(true);
-            setUserInfo({ name: user.name || user.email || 'User' });
-          } else {
-            setIsLoggedIn(true);
+          return;
+        }
+        
+        // Fallback to API call if session exists
+        if (userSession) {
+          try {
+            const res = await fetch(`${API_BASE}/me?session=${userSession}`, {
+              headers: { 'Authorization': `Bearer ${TOKEN}` }
+            });
+            if (res.ok) {
+              const user = await res.json();
+              setUserInfo({ 
+                name: user.name || user.email || 'User',
+                email: user.email 
+              });
+            } else {
+              setUserInfo({ name: 'User' });
+            }
+          } catch (err) {
             setUserInfo({ name: 'User' });
           }
-        } catch (err) {
-          setIsLoggedIn(true);
+        } else {
           setUserInfo({ name: 'User' });
         }
       }

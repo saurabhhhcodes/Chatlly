@@ -194,9 +194,14 @@ async def auth_microsoft(request: Request, code: str = None):
     return RedirectResponse(url=f"{frontend_url}/login/success?provider=microsoft&name=Microsoft%20User")
 
 @router.get("/me")
-async def get_user_info(session: str = None):
+async def get_user_info(request: Request, session: str = None):
+    # Try to get session from query parameter
+    if not session:
+        session = request.query_params.get('session')
+    
     if session and session in user_sessions:
         return user_sessions[session]
+    
     return {
         "name": "Guest User",
         "email": "",

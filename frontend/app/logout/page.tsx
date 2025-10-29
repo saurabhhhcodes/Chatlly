@@ -5,18 +5,17 @@ import Link from 'next/link';
 
 export default function LogoutPage() {
   useEffect(() => {
-    // Clear login state
+    // Clear all authentication data
     localStorage.removeItem('loginSuccess');
-    localStorage.removeItem('loginProvider');
     localStorage.removeItem('userSession');
     localStorage.removeItem('userName');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('loginProvider');
     
-    const timer = setTimeout(() => {
+    // Redirect to home after a short delay
+    setTimeout(() => {
       window.location.href = '/';
     }, 2000);
-
-    return () => clearTimeout(timer);
   }, []);
 
   return (
@@ -38,54 +37,36 @@ export default function LogoutPage() {
         boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
         textAlign: 'center' 
       }}>
-        <div style={{ marginBottom: 24 }}>
-          <div style={{ 
-            width: 80, 
-            height: 80, 
-            borderRadius: '50%', 
-            backgroundColor: '#fee2e2', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            margin: '0 auto 24px',
-            fontSize: 32
-          }}>
-            👋
-          </div>
-          
-          <h1 style={{ 
-            fontSize: 28, 
-            fontWeight: 700, 
-            color: '#1f2937', 
-            marginBottom: 8 
-          }}>
-            Goodbye!
-          </h1>
-          
-          <p style={{ 
-            color: '#6b7280', 
-            fontSize: 16,
-            marginBottom: 24
-          }}>
-            You have been successfully logged out.
-          </p>
-
-          <div style={{
-            padding: 16,
-            backgroundColor: '#fef2f2',
-            borderRadius: 12,
-            border: '1px solid #fecaca',
-            marginBottom: 24
-          }}>
-            <p style={{ 
-              color: '#991b1b', 
-              fontSize: 14,
-              margin: 0
-            }}>
-              Redirecting to home page...
-            </p>
-          </div>
+        <div style={{ 
+          width: 80, 
+          height: 80, 
+          borderRadius: '50%', 
+          backgroundColor: '#fee2e2', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          margin: '0 auto 24px',
+          fontSize: 32
+        }}>
+          🚪
         </div>
+        
+        <h1 style={{ 
+          fontSize: 28, 
+          fontWeight: 700, 
+          color: '#1f2937', 
+          marginBottom: 8 
+        }}>
+          Logged Out
+        </h1>
+        
+        <p style={{ 
+          color: '#6b7280', 
+          fontSize: 16,
+          marginBottom: 24
+        }}>
+          You have been successfully logged out. Redirecting to home...
+        </p>
 
         <Link 
           href="/" 
@@ -101,7 +82,7 @@ export default function LogoutPage() {
             transition: 'all 0.2s'
           }}
         >
-          Return to Home
+          Go to Home
         </Link>
       </div>
     </div>

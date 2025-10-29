@@ -1,10 +1,10 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
-export default function LoginSuccessPage() {
+function LoginSuccessContent() {
   const searchParams = useSearchParams();
   const provider = searchParams.get('provider');
   const name = searchParams.get('name');
@@ -169,5 +169,13 @@ export default function LoginSuccessPage() {
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function LoginSuccessPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginSuccessContent />
+    </Suspense>
   );
 }

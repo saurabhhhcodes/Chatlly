@@ -1,11 +1,43 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:8000/api';
 
 export default function LoginPage() {
+  const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState({ name: '', email: '', password: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    try {
+      const endpoint = isSignup ? '/signup' : '/login';
+      const res = await fetch(`${API_BASE}${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('loginSuccess', 'true');
+        localStorage.setItem('userSession', data.session);
+        localStorage.setItem('userName', formData.name || formData.email);
+        window.location.href = '/';
+      } else {
+        alert(data.detail || 'Authentication failed');
+      }
+    } catch (err) {
+      alert('Network error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div style={{ 
       minHeight: '100vh', 
@@ -32,17 +64,114 @@ export default function LoginPage() {
             color: '#1f2937', 
             marginBottom: 8 
           }}>
-            Welcome Back
+            {isSignup ? 'Create Account' : 'Welcome Back'}
           </h1>
           <p style={{ 
             color: '#6b7280', 
             fontSize: 16,
             margin: 0
           }}>
-            Sign in to access your Agentic Knowledge Assistant
+            {isSignup ? 'Sign up for your Agentic Knowledge Assistant' : 'Sign in to access your Agentic Knowledge Assistant'}
           </p>
         </div>
 
+        {/* Email/Password Form */}
+        <form onSubmit={handleSubmit} style={{ marginBottom: 24 }}>
+          {isSignup && (
+            <input
+              type="text"
+              placeholder="Full Name"
+              value={formData.name}
+              onChange={(e) => setFormData({...formData, name: e.target.value})}
+              required
+              style={{ 
+                width: '100%', 
+                padding: 12, 
+                marginBottom: 12, 
+                border: '1px solid #d1d5db', 
+                borderRadius: 8,
+                fontSize: 16
+              }}
+            />
+          )}
+          <input
+            type="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={(e) => setFormData({...formData, email: e.target.value})}
+            required
+            style={{ 
+              width: '100%', 
+              padding: 12, 
+              marginBottom: 12, 
+              border: '1px solid #d1d5db', 
+              borderRadius: 8,
+              fontSize: 16
+            }}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={(e) => setFormData({...formData, password: e.target.value})}
+            required
+            style={{ 
+              width: '100%', 
+              padding: 12, 
+              marginBottom: 16, 
+              border: '1px solid #d1d5db', 
+              borderRadius: 8,
+              fontSize: 16
+            }}
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            style={{ 
+              width: '100%', 
+              padding: 12, 
+              backgroundColor: '#3b82f6', 
+              color: 'white', 
+              border: 'none', 
+              borderRadius: 8,
+              fontSize: 16,
+              fontWeight: 500,
+              cursor: loading ? 'not-allowed' : 'pointer',
+              opacity: loading ? 0.7 : 1
+            }}
+          >
+            {loading ? 'Please wait...' : (isSignup ? 'Create Account' : 'Sign In')}
+          </button>
+        </form>
+
+        {/* Toggle Sign Up/Sign In */}
+        <p style={{ color: '#6b7280', fontSize: 14, marginBottom: 24 }}>
+          {isSignup ? 'Already have an account?' : "Don't have an account?"}{' '}
+          <button
+            onClick={() => setIsSignup(!isSignup)}
+            style={{ 
+              background: 'none', 
+              border: 'none', 
+              color: '#3b82f6', 
+              cursor: 'pointer',
+              textDecoration: 'underline'
+            }}
+          >
+            {isSignup ? 'Sign In' : 'Sign Up'}
+          </button>
+        </p>
+
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          marginBottom: 24 
+        }}>
+          <div style={{ flex: 1, height: 1, backgroundColor: '#e5e7eb' }}></div>
+          <span style={{ margin: '0 16px', color: '#6b7280', fontSize: 14 }}>OR</span>
+          <div style={{ flex: 1, height: 1, backgroundColor: '#e5e7eb' }}></div>
+        </div>
+
+        {/* SSO Buttons */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 16, marginBottom: 32 }}>
           <a 
             href={`${API_BASE}/login/google`} 
@@ -60,14 +189,6 @@ export default function LoginPage() {
               fontWeight: 500,
               transition: 'all 0.2s',
               backgroundColor: 'white'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.borderColor = '#3b82f6';
-              e.currentTarget.style.backgroundColor = '#f8fafc';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.borderColor = '#e5e7eb';
-              e.currentTarget.style.backgroundColor = 'white';
             }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24">
@@ -95,14 +216,6 @@ export default function LoginPage() {
               fontWeight: 500,
               transition: 'all 0.2s',
               backgroundColor: 'white'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.borderColor = '#0078d4';
-              e.currentTarget.style.backgroundColor = '#f8fafc';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.borderColor = '#e5e7eb';
-              e.currentTarget.style.backgroundColor = 'white';
             }}
           >
             <svg width="20" height="20" viewBox="0 0 24 24">

@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: chatlly-backend
+    env: docker
+    dockerfilePath: ./Dockerfile.backend
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: MICROSOFT_CLIENT_ID
+        sync: false
+      - key: MICROSOFT_CLIENT_SECRET
+        sync: false
+      - key: BEARER_TOKEN
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: EMBED_MODEL
+        value: models/embedding-001
+      - key: ANSWER_MODEL
+        value: gemini-pro
+      - key: DATA_DIR
+        value: /app/data
+      - key: INDEX_DIR
+        value: /app/index_store/chroma_db
+
+  - type: web
+    name: chatlly-frontend
+    env: docker
+    dockerfilePath: ./Dockerfile.frontend
+    envVars:
+      - key: NEXT_PUBLIC_API_BASE
+        fromService:
+          type: web
+          name: chatlly-backend
+          property: url
+      - key: NEXT_PUBLIC_BEARER_TOKEN
+        sync: false

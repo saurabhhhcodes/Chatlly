@@ -13,6 +13,15 @@ class IngestResponse(BaseModel):
     chunks_ingested: int
     files: int
 
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+class SignupRequest(BaseModel):
+    name: str
+    email: str
+    password: str
+
 class User(BaseModel):
     id: int
     email: str

@@ -67,7 +67,7 @@ function LoginSuccessContent() {
   return (
     <div style={{ 
       minHeight: '100vh', 
-      background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+      backgroundColor: 'white',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -88,7 +88,8 @@ function LoginSuccessContent() {
             width: 80, 
             height: 80, 
             borderRadius: '50%', 
-            backgroundColor: '#dcfce7', 
+            backgroundColor: 'white',
+            border: '1px solid #e5e7eb',
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'center',
@@ -118,11 +119,12 @@ function LoginSuccessContent() {
           {name && (
             <div style={{
               padding: 12,
-              backgroundColor: '#f0f9ff',
+              backgroundColor: 'white',
+              border: '1px solid #e5e7eb',
               borderRadius: 8,
               marginBottom: 16,
               fontSize: 14,
-              color: '#0369a1'
+              color: '#374151'
             }}>
               Welcome, {name}!
             </div>
@@ -130,13 +132,13 @@ function LoginSuccessContent() {
 
           <div style={{
             padding: 16,
-            backgroundColor: '#f0fdf4',
+            backgroundColor: 'white',
             borderRadius: 12,
-            border: '1px solid #bbf7d0',
+            border: '1px solid #e5e7eb',
             marginBottom: 24
           }}>
             <p style={{ 
-              color: '#166534', 
+              color: '#374151', 
               fontSize: 14,
               margin: 0
             }}>
@@ -150,8 +152,9 @@ function LoginSuccessContent() {
           style={{ 
             display: 'inline-block',
             padding: '12px 24px', 
-            backgroundColor: '#3b82f6', 
-            color: 'white', 
+            backgroundColor: 'white',
+            border: '1px solid #d1d5db',
+            color: '#374151', 
             textDecoration: 'none', 
             borderRadius: 8,
             fontSize: 16,
@@ -159,10 +162,10 @@ function LoginSuccessContent() {
             transition: 'all 0.2s'
           }}
           onMouseOver={(e) => {
-            e.currentTarget.style.backgroundColor = '#2563eb';
+            e.currentTarget.style.backgroundColor = '#f9fafb';
           }}
           onMouseOut={(e) => {
-            e.currentTarget.style.backgroundColor = '#3b82f6';
+            e.currentTarget.style.backgroundColor = 'white';
           }}
         >
           Go to Chat Now

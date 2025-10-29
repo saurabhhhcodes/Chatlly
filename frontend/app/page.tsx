@@ -159,11 +159,11 @@ export default function Page() {
           {isLoggedIn && userInfo && (
             <div style={{
               padding: '8px 16px',
-              backgroundColor: '#dcfce7',
-              border: '1px solid #bbf7d0',
+              backgroundColor: 'white',
+              border: '1px solid #e5e7eb',
               borderRadius: 8,
               fontSize: 14,
-              color: '#166534'
+              color: '#374151'
             }}>
               ✅ Welcome, {userInfo.name || userInfo.email || 'User'}!
             </div>
@@ -173,15 +173,13 @@ export default function Page() {
             href={isLoggedIn ? "/logout" : "/login"}
             style={{ 
               padding: '12px 20px', 
-              background: isLoggedIn 
-                ? 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)'
-                : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              color: 'white', 
+              backgroundColor: 'white',
+              border: '1px solid #d1d5db',
+              color: '#374151', 
               textDecoration: 'none', 
               borderRadius: 8,
               fontSize: 14,
               fontWeight: 500,
-              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
               transition: 'all 0.2s',
               whiteSpace: 'nowrap'
             }}
@@ -194,7 +192,7 @@ export default function Page() {
       {/* File Upload */}
       <div style={{ display: 'flex', gap: 12, marginBottom: 16 }}>
         <div style={{ display: 'flex', gap: 12, marginBottom: 16, alignItems: 'center' }}></div>
-        <label style={{ border: '1px solid #ddd', padding: 8, borderRadius: 8, cursor: 'pointer' }}>
+        <label style={{ border: '1px solid #e5e7eb', padding: 8, borderRadius: 8, cursor: 'pointer', backgroundColor: 'white' }}>
           Upload File (PDF/CSV/DOCX/TXT)
           <input type="file" accept=".pdf,.csv,.docx,.txt" style={{ display: 'none' }} onChange={upload} />
         </label>
@@ -203,7 +201,7 @@ export default function Page() {
           href="/uploads"
           style={{
             marginLeft: 'auto',
-            border: '1px solid rgb(221, 221, 221)',
+            border: '1px solid #e5e7eb',
             padding: '8px',
             borderRadius: 8,
             textDecoration: 'none',
@@ -221,10 +219,10 @@ export default function Page() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Ask a question…"
-          style={{ flex: 1, padding: 12, border: '1px solid #ddd', borderRadius: 8 }}
+          style={{ flex: 1, padding: 12, border: '1px solid #e5e7eb', borderRadius: 8, backgroundColor: 'white' }}
           onKeyDown={(e) => e.key === 'Enter' && ask()}
         />
-        <button onClick={ask} disabled={loading} style={{ padding: '12px 16px', borderRadius: 8, border: '1px solid #111' }}>
+        <button onClick={ask} disabled={loading} style={{ padding: '12px 16px', borderRadius: 8, border: '1px solid #d1d5db', backgroundColor: 'white', color: '#374151' }}>
           {loading ? 'Thinking…' : 'Ask'}
         </button>
       </div>
@@ -237,7 +235,7 @@ export default function Page() {
 
       {/* Answer Section */}
       {answer && (
-        <div style={{ marginTop: 24, padding: 16, border: '1px solid #eee', borderRadius: 12, background: '#fafafa' }}>
+        <div style={{ marginTop: 24, padding: 16, border: '1px solid #e5e7eb', borderRadius: 12, backgroundColor: 'white' }}>
           <h3>Answer</h3>
           <p style={{ whiteSpace: 'pre-wrap' }}>{answer.replace(/&#39;/g, "'").replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')}</p>
 

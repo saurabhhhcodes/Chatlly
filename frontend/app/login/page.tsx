@@ -41,7 +41,7 @@ export default function LoginPage() {
   return (
     <div style={{ 
       minHeight: '100vh', 
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      backgroundColor: 'white',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -130,9 +130,9 @@ export default function LoginPage() {
             style={{ 
               width: '100%', 
               padding: 12, 
-              backgroundColor: '#3b82f6', 
-              color: 'white', 
-              border: 'none', 
+              backgroundColor: 'white',
+              border: '1px solid #d1d5db',
+              color: '#374151', 
               borderRadius: 8,
               fontSize: 16,
               fontWeight: 500,
@@ -152,7 +152,7 @@ export default function LoginPage() {
             style={{ 
               background: 'none', 
               border: 'none', 
-              color: '#3b82f6', 
+              color: '#374151', 
               cursor: 'pointer',
               textDecoration: 'underline'
             }}
@@ -242,7 +242,7 @@ export default function LoginPage() {
           <Link 
             href="/" 
             style={{ 
-              color: '#3b82f6', 
+              color: '#374151', 
               textDecoration: 'none', 
               fontSize: 14,
               fontWeight: 500

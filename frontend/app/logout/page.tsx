@@ -21,7 +21,7 @@ export default function LogoutPage() {
   return (
     <div style={{ 
       minHeight: '100vh', 
-      background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+      backgroundColor: 'white',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -41,7 +41,8 @@ export default function LogoutPage() {
           width: 80, 
           height: 80, 
           borderRadius: '50%', 
-          backgroundColor: '#fee2e2', 
+          backgroundColor: 'white',
+          border: '1px solid #e5e7eb',
           display: 'flex', 
           alignItems: 'center', 
           justifyContent: 'center',
@@ -73,8 +74,9 @@ export default function LogoutPage() {
           style={{ 
             display: 'inline-block',
             padding: '12px 24px', 
-            backgroundColor: '#3b82f6', 
-            color: 'white', 
+            backgroundColor: 'white',
+            border: '1px solid #d1d5db',
+            color: '#374151', 
             textDecoration: 'none', 
             borderRadius: 8,
             fontSize: 16,

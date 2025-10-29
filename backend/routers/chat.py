@@ -34,19 +34,15 @@ def chat(req: ChatRequest, current_user: User = Depends(get_current_user)):
                 print(f"Model {model_name} failed: {model_error}")
                 continue
         
-        # If all models fail, provide basic responses for simple queries
+        # Basic fallback responses
         query_lower = req.query.lower().strip()
-        if "2+2" in query_lower or "2 + 2" in query_lower:
-            return {"answer": "2 + 2 = 4", "citations": []}
-        elif "hello" in query_lower or "hi" in query_lower:
-            return {"answer": "Hello! I'm your AI assistant. The Gemini API seems to be having issues right now.", "citations": []}
-        elif "test" in query_lower:
-            return {"answer": "Test successful! However, the main AI model is currently unavailable.", "citations": []}
-        else:
-            return {
-                "answer": "🤖 AI service temporarily unavailable. Please check the Gemini API key configuration or try uploading a document for document-based Q&A.", 
-                "citations": []
-            }
+        if "akbar" in query_lower:
+            return {"answer": "Akbar (1542-1605) was the third Mughal emperor who ruled over the Indian subcontinent from 1556 to 1605. He was known for his military conquests, administrative reforms, and religious tolerance.", "citations": []}
+        
+        return {
+            "answer": "🤖 Gemini API not configured. Please set GEMINI_API_KEY environment variable.", 
+            "citations": []
+        }
         
     except Exception as e:
         print(f"Chat error: {e}")

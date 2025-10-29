@@ -38,9 +38,11 @@ def chat(req: ChatRequest, current_user: User = Depends(get_current_user)):
         query_lower = req.query.lower().strip()
         if "akbar" in query_lower:
             return {"answer": "Akbar (1542-1605) was the third Mughal emperor who ruled over the Indian subcontinent from 1556 to 1605. He was known for his military conquests, administrative reforms, and religious tolerance.", "citations": []}
+        elif "test" in query_lower:
+            return {"answer": f"Test response - API Key present: {bool(settings.GEMINI_API_KEY)}, Query: '{req.query}'", "citations": []}
         
         return {
-            "answer": "🤖 Gemini API not configured. Please set GEMINI_API_KEY environment variable.", 
+            "answer": f"🤖 Gemini API not configured. Query was: '{req.query}'. Please set GEMINI_API_KEY environment variable.", 
             "citations": []
         }
         

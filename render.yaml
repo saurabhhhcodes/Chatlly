@@ -1,10 +1,12 @@
 services:
   - type: web
     name: chatlly-backend
-    env: python
-    buildCommand: cd backend && pip install -r requirements.txt
-    startCommand: cd backend && uvicorn app:app --host 0.0.0.0 --port $PORT
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
     envVars:
+      - key: PORT
+        value: 8000
       - key: GEMINI_API_KEY
         sync: false
       - key: GOOGLE_CLIENT_ID
@@ -20,9 +22,9 @@ services:
       - key: SECRET_KEY
         sync: false
       - key: DATA_DIR
-        value: /opt/render/project/src/data
+        value: /app/data
       - key: INDEX_DIR
-        value: /opt/render/project/src/index_store/chroma_db
+        value: /app/index_store/chroma_db
 
   - type: web
     name: chatlly-frontend

@@ -44,7 +44,11 @@ async def auth_google(request: Request, code: str = None):
         try:
             base_url = str(request.base_url).rstrip('/')
             redirect_uri = f"{base_url}/api/auth/google"
-            frontend_url = base_url.replace(':8000', ':3000') if 'localhost' in base_url else base_url
+            # Use frontend URL for production
+            if 'localhost' in base_url:
+                frontend_url = base_url.replace(':8000', ':3000')
+            else:
+                frontend_url = 'https://chatlly-frontend.onrender.com'
             
             token_data = {
                 'client_id': settings.GOOGLE_CLIENT_ID,
@@ -82,7 +86,10 @@ async def auth_google(request: Request, code: str = None):
             print(f"OAuth error: {e}")
     
     base_url = str(request.base_url).rstrip('/')
-    frontend_url = base_url.replace(':8000', ':3000') if 'localhost' in base_url else base_url
+    if 'localhost' in base_url:
+        frontend_url = base_url.replace(':8000', ':3000')
+    else:
+        frontend_url = 'https://chatlly-frontend.onrender.com'
     return RedirectResponse(url=f"{frontend_url}/login/success?provider=google&name=Google%20User")
 
 @router.get("/auth/microsoft")
@@ -91,7 +98,11 @@ async def auth_microsoft(request: Request, code: str = None):
         try:
             base_url = str(request.base_url).rstrip('/')
             redirect_uri = f"{base_url}/api/auth/microsoft"
-            frontend_url = base_url.replace(':8000', ':3000') if 'localhost' in base_url else base_url
+            # Use frontend URL for production
+            if 'localhost' in base_url:
+                frontend_url = base_url.replace(':8000', ':3000')
+            else:
+                frontend_url = 'https://chatlly-frontend.onrender.com'
             
             token_data = {
                 'client_id': settings.MICROSOFT_CLIENT_ID,
@@ -129,7 +140,10 @@ async def auth_microsoft(request: Request, code: str = None):
             print(f"Microsoft OAuth error: {e}")
     
     base_url = str(request.base_url).rstrip('/')
-    frontend_url = base_url.replace(':8000', ':3000') if 'localhost' in base_url else base_url
+    if 'localhost' in base_url:
+        frontend_url = base_url.replace(':8000', ':3000')
+    else:
+        frontend_url = 'https://chatlly-frontend.onrender.com'
     return RedirectResponse(url=f"{frontend_url}/login/success?provider=microsoft&name=Microsoft%20User")
 
 @router.get("/me")

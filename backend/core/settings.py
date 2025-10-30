@@ -2,12 +2,13 @@
 from typing import List
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+import os
 
 class Settings(BaseSettings):
     # Models / Keys
     GEMINI_API_KEY: str = Field(default="")
-    EMBED_MODEL: str = Field(default="text-embedding-3-small")
-    ANSWER_MODEL: str = Field(default="gpt-4o-mini")
+    EMBED_MODEL: str = Field(default="models/embedding-001")
+    ANSWER_MODEL: str = Field(default="gemini-pro")
 
     # Auth
     BEARER_TOKEN: str = Field(default="dev-token-please-change")
@@ -24,11 +25,11 @@ class Settings(BaseSettings):
     # CORS
     CORS_ALLOW_ORIGINS: List[str] = ["*"]
 
-    # pydantic-settings config
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=".env" if os.path.exists(".env") else None,
         env_file_encoding="utf-8",
-        extra="ignore",  # ignore unknown envs
+        extra="ignore",
+        case_sensitive=True,
     )
 
 settings = Settings()

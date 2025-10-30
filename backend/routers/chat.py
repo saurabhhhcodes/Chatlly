@@ -14,11 +14,11 @@ def chat(req: ChatRequest, current_user: User = Depends(get_current_user)):
         
         genai.configure(api_key=settings.GEMINI_API_KEY)
         
-        model_names = ["gemini-1.5-flash-latest", "gemini-1.5-pro-latest", "gemini-pro"]
+        model_names = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro"]
         
         for model_name in model_names:
             try:
-                model = genai.GenerativeModel(model_name=model_name)
+                model = genai.GenerativeModel(model_name)
                 response = model.generate_content(req.query)
                 
                 if response and response.text:

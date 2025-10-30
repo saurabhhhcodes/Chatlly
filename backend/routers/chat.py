@@ -19,8 +19,8 @@ def chat(req: ChatRequest, current_user: User = Depends(get_current_user)):
         if not settings.GEMINI_API_KEY:
             return {"answer": "❌ Gemini API key not configured. Please check environment variables.", "citations": []}
         
-        # Try the most common Gemini model names
-        model_names = ["gemini-1.5-flash", "gemini-1.5-pro", "gemini-pro"]
+        # Try the most common Gemini model names without 'models/' prefix
+        model_names = ["gemini-1.5-flash-latest", "gemini-1.5-pro-latest", "gemini-pro"]
         
         for model_name in model_names:
             try:

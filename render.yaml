@@ -1,12 +1,10 @@
 services:
   - type: web
     name: chatlly-backend
-    env: docker
-    dockerfilePath: ./backend/Dockerfile
-    dockerContext: ./backend
+    env: python
+    buildCommand: cd backend && apt-get update && apt-get install -y poppler-utils tesseract-ocr && pip install -r requirements.txt
+    startCommand: cd backend && uvicorn app:app --host 0.0.0.0 --port $PORT
     envVars:
-      - key: PORT
-        value: 8000
       - key: GEMINI_API_KEY
         sync: false
       - key: GOOGLE_CLIENT_ID
@@ -22,9 +20,9 @@ services:
       - key: SECRET_KEY
         sync: false
       - key: DATA_DIR
-        value: /app/data
+        value: /opt/render/project/src/data
       - key: INDEX_DIR
-        value: /app/index_store/chroma_db
+        value: /opt/render/project/src/index_store/chroma_db
 
   - type: web
     name: chatlly-frontend

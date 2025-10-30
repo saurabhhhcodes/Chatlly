@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 from core.settings import settings
 from routers.chat import router as chat_router
 from routers.ingest import router as ingest_router
@@ -7,12 +8,16 @@ from routers.agent import router as agent_router
 from routers.uploads import router as uploads_router
 from routers.auth import router as auth_router
 from core.database import create_db_and_tables
+import os
 
-app = FastAPI(title="RAG Agentic Assistant Demo")
-
-@app.on_event("startup")
-def on_startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    os.makedirs(settings.DATA_DIR, exist_ok=True)
+    os.makedirs(settings.INDEX_DIR, exist_ok=True)
     create_db_and_tables()
+    yield
+
+app = FastAPI(title="RAG Agentic Assistant Demo", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
